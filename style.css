@@ -1,0 +1,22 @@
+body{
+  background-color: #cccccc;
+}
+#led {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    border-width:2px;
+    /*background-color: #aaaaaa;*/
+}
+#trigger {
+    position: relative;
+    width: 40px;
+    display: inline;
+}
+.black {
+    background-color:red;
+}
+.red {
+    border-color: red;
+    border-width:2px;
+}
