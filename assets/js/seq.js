@@ -20,7 +20,7 @@ $(document).ready(function () {
           $("#now").html(stepTime);
           if (playing) {
             //console.log("roll is in play mode");
-            if (track[trackevent][0] <= eventTime + 0.009 && track[trackevent][0] >= eventTime-0.009) {
+            if (track[trackevent][0] <= eventTime + 0.01 && track[trackevent][0] >= eventTime-0.01) {
               console.log("Matching: " + trackevent + " time: " + eventTime);
               play(track[trackevent]);
               if (trackevent < track.length - 1){
