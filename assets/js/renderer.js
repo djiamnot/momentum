@@ -44,7 +44,7 @@ $container.append(renderer.domElement);
 
 
 // set up the sphere vars
-var radius = 50,
+var radius = 2,
     segments = 16,
     rings = 16;
 
@@ -58,17 +58,25 @@ var sphereMaterial =
 // create a new mesh with
 // sphere geometry - we will cover
 // the sphereMaterial next!
-var sphere = new THREE.Mesh(
+var viz = function (x, y ,z) {
+    console.log("viz called " + " with " + "x: " + x + " y: " + y);
+    sphere = new THREE.Mesh(
 
-  new THREE.SphereGeometry(
-    radius,
-    segments,
-    rings),
-  sphereMaterial);
-
-// add the sphere to the scene
-//scene.add(sphere);
-
+        new THREE.SphereGeometry(
+            radius,
+            segments,
+            rings),
+        sphereMaterial);
+    
+    // console.log("Mouse: " + event.clientX + "x" + event.clientY)
+    // sphere.position.set(event.clientX, event.clientY-90, 0);
+    sphere.position.set(x, y, 0);
+    // sphere.position.x = x ;
+    // sphere.position.y = (-y + 80);
+    // sphere.position.z = z;
+    // add the sphere to the scene
+    scene.add(sphere);
+}
 
 animate();
 

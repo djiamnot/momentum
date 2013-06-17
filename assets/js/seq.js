@@ -106,7 +106,8 @@ $(document).ready(function () {
     });
 
   var record = function (index, t, x, y) {
-    track[index] =  new Array(t, x, y);
+      track[index] =  new Array(t, x, y);
+      var drawObject = new viz(x, y, 0);
   }
   var play = function (data) {
     whiteCrossSprite.position.set(data[1], data[2]-80,0);
