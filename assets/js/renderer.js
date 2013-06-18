@@ -62,7 +62,8 @@ var viz = function (x, y ,offset) {
             {
                 color: 0xCC0000,
                 transparent: true,
-                opacity: 0.6
+                opacity: 0.6,
+                side: THREE.DoubleSide
             });
 
     clickTrace = new THREE.Mesh(
@@ -101,12 +102,23 @@ var pointLight =
   new THREE.PointLight(0xFFFFFF);
 
 // set its position
-pointLight.position.x = 10;
-pointLight.position.y = 50;
-pointLight.position.z = 130;
+pointLight.position.x = 0;
+pointLight.position.y = 0;
+pointLight.position.z = 0;
 
 // add to the scene
 scene.add(pointLight);
+
+// var pointLight2 =
+//   new THREE.PointLight(0xFFFFFF);
+
+// // set its position
+// pointLight2.position.x = -10;
+// pointLight2.position.y = -50;
+// pointLight2.position.z = -130;
+
+// add to the scene
+//scene.add(pointLight2);
 
 // initialize object to perform world/screen calculations
 projector = new THREE.Projector();
