@@ -1,6 +1,8 @@
 // set the scene size
-var WIDTH = 400,
-  HEIGHT = 300;
+// var WIDTH = 400,
+//   HEIGHT = 300;
+var WIDTH = $(window).width();
+var HEIGHT = $(window).height();
 
 // set some camera attributes
 var VIEW_ANGLE = 45,
@@ -48,41 +50,47 @@ var radius = 2,
     segments = 16,
     rings = 16;
 
-// create the sphere's material
-var sphereMaterial =
-  new THREE.MeshLambertMaterial(
-    {
-      color: 0xCC0000
-    });
 
 // create a new mesh with
 // sphere geometry - we will cover
 // the sphereMaterial next!
-var viz = function (x, y ,z) {
+var viz = function (x, y ,offset) {
     console.log("viz called " + " with " + "x: " + x + " y: " + y);
-    sphere = new THREE.Mesh(
+    // create the sphere's material
+    clickTraceMaterial =
+        new THREE.MeshLambertMaterial(
+            {
+                color: 0xCC0000,
+                opacity: 0.7
+            });
 
-        new THREE.SphereGeometry(
-            radius,
-            segments,
-            rings),
-        sphereMaterial);
+    clickTrace = new THREE.Mesh(
+
+        // new THREE.SphereGeometry(
+        //     radius,
+        //     segments,
+        //     rings),
+        // clickTraceMaterial);
+        new THREE.CubeGeometry(0.1, x/100, y/1000, 1, 1, 1), 
+        clickTraceMaterial);
     
     // console.log("Mouse: " + event.clientX + "x" + event.clientY)
     // sphere.position.set(event.clientX, event.clientY-90, 0);
-    sphere.position.set(x, y, 0);
-    // sphere.position.x = x ;
-    // sphere.position.y = (-y + 80);
-    // sphere.position.z = z;
-    // add the sphere to the scene
-    scene.add(sphere);
+    clickTrace.position.set(-50 + offset , 0, -25);
+    // clickTrace.position.x = x ;
+    // clickTrace.position.y = (-y + 80);
+    // clickTrace.position.z = z;
+    // add the clickTrace to the scene
+    //clickTrace.rotation.x = Math.PI / 2;
+    scene.add(clickTrace);
+    return(clickTrace);
 }
 
 animate();
 
 // SKYBOX/FOG
 	var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
-	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0xaaaaaa, side: THREE.BackSide } );
+	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x666666, side: THREE.BackSide } );
 	var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
     skyBox.flipSided = true; // render faces from inside of the cube, instead of from outside (default).
 	scene.add(skyBox);

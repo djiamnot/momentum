@@ -22,7 +22,7 @@ $(document).ready(function () {
             //console.log("roll is in play mode");
             if (track[trackevent][0] <= eventTime + 0.01 && track[trackevent][0] >= eventTime-0.01) {
               console.log("Matching: " + trackevent + " time: " + eventTime);
-              play(track[trackevent]);
+                play(trackevent,track[trackevent]);
               if (trackevent < track.length - 1){
                 trackevent += 1;
               } else {
@@ -104,14 +104,21 @@ $(document).ready(function () {
       console.log("Added: " + track[index] + " at index: " + index);
       trackevents += 1;
     });
-
+    var objectArray = new Array();
   var record = function (index, t, x, y) {
       track[index] =  new Array(t, x, y);
-      var drawObject = new viz(x, y, 0);
+      drawObject = new viz(x, y,eventTime );
+      console.log(drawObject);
+      objectArray[index] = drawObject;
   }
-  var play = function (data) {
-    whiteCrossSprite.position.set(data[1], data[2]-80,0);
-    $("#led").html(data[0]);
-    //         $("#led").toggleClass("black");
+    var play = function (index,data) {
+        whiteCrossSprite.position.set(data[1], data[2]-80,0);
+        for (i=0; i < objectArray.length;i++ ){
+            objectArray[i].material.color = new THREE.Color(0xCC0000);
+        }
+        console.log(pointLight);
+        objectArray[index].material.color = new THREE.Color(0x0000CC);
+        console.log(objectArray[index].material.color);
+        $("#led").html(data[0]);
   }
   });
