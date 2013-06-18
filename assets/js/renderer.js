@@ -61,7 +61,8 @@ var viz = function (x, y ,offset) {
         new THREE.MeshLambertMaterial(
             {
                 color: 0xCC0000,
-                opacity: 0.7
+                transparent: true,
+                opacity: 0.6
             });
 
     clickTrace = new THREE.Mesh(
@@ -71,12 +72,12 @@ var viz = function (x, y ,offset) {
         //     segments,
         //     rings),
         // clickTraceMaterial);
-        new THREE.CubeGeometry(0.1, x/100, y/1000, 1, 1, 1), 
+        new THREE.CubeGeometry(0.1, x/100, y/100, 1, 1, 1), 
         clickTraceMaterial);
     
     // console.log("Mouse: " + event.clientX + "x" + event.clientY)
     // sphere.position.set(event.clientX, event.clientY-90, 0);
-    clickTrace.position.set(-50 + offset , 0, -25);
+    clickTrace.position.set(-40 + offset , 0, -25);
     // clickTrace.position.x = x ;
     // clickTrace.position.y = (-y + 80);
     // clickTrace.position.z = z;
@@ -90,7 +91,7 @@ animate();
 
 // SKYBOX/FOG
 	var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
-	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x666666, side: THREE.BackSide } );
+	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x444444, side: THREE.BackSide } );
 	var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
     skyBox.flipSided = true; // render faces from inside of the cube, instead of from outside (default).
 	scene.add(skyBox);
