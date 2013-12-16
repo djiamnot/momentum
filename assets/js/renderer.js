@@ -36,7 +36,7 @@ scene.add(camera);
 
 // the camera starts at 0,0,0
 // so pull it back
-camera.position.z = 40;
+camera.position.z = 140;
 
 // start the renderer
 renderer.setSize(WIDTH, HEIGHT);
@@ -88,23 +88,62 @@ var viz = function (x, y ,offset) {
     return(clickTrace);
 }
 
+var material = new THREE.MeshFaceMaterial( [ 
+    //new THREE.MeshPhongMaterial( { color: 0xffffff, shading: THREE.FlatShading } ), // front
+    new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.SmoothShading, side: THREE.DoubleSide } ) // side
+] );
+
+var textGeo, textMesh1;
+
+var createText = function() {
+    textGeo = new THREE.TextGeometry ("Hello, where are you?", {
+	size: 10,
+	height: 24,
+	weight: "normal",
+	style: "normal",
+	curveSegments: 4,
+	font: "gentilis",
+	bevelEnabled: true,
+	bevelSize: 0.5
+
+    });
+    textGeo.computeBoundingBox();
+    textGeo.computeVertexNormals();
+//    textMesh1 = new THREE.Mesh(textGeo, clickTraceMaterial);
+    textMesh1 = new THREE.Mesh( textGeo, material );
+    var centerOffset = -0.5 * ( textGeo.boundingBox.max.x - textGeo.boundingBox.min.x );
+    textMesh1.position.x = centerOffset;
+    textMesh1.position.y = 10;
+    textMesh1.position.z = 0;
+    
+    textMesh1.rotation.x = 0;
+    textMesh1.rotation.y = Math.PI * 2;
+    scene.add(textMesh1);
+}
+createText();
 animate();
 
 // SKYBOX/FOG
-	var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
-	var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x444444, side: THREE.BackSide } );
-	var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
-    skyBox.flipSided = true; // render faces from inside of the cube, instead of from outside (default).
-	scene.add(skyBox);
+var skyBoxGeometry = new THREE.CubeGeometry( 10000, 10000, 10000 );
+//var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x444444, side: THREE.BackSide } );
+var skyBoxMaterial = new THREE.MeshBasicMaterial( { color: 0x2040600, side: THREE.BackSide } );
+var skyBox = new THREE.Mesh( skyBoxGeometry, skyBoxMaterial );
+skyBox.flipSided = true; // render faces from inside of the cube, instead of from outside (default).
+scene.add(skyBox);
+
+
+// LIGHTS
+var dirLight = new THREE.DirectionalLight( 0xffffff, 0.125 );
+dirLight.position.set( 0, 0, 1 ).normalize();
+scene.add( dirLight );
 
 // create a point light
-var pointLight =
-  new THREE.PointLight(0xFFFFFF);
+var pointLight = new THREE.PointLight(0xFFFFFF);
 
 // set its position
 pointLight.position.x = 0;
-pointLight.position.y = 0;
-pointLight.position.z = 0;
+pointLight.position.y = 100;
+pointLight.position.z = 90;
 
 // add to the scene
 scene.add(pointLight);
